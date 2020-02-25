@@ -53,24 +53,7 @@ class Auth extends CI_Controller
                 $row = $query->row();
                 if(isset($row))
                 {   
-                    // $userhash = password_hash($_POST["password"],PASSWORD_DEFAULT);
-                    // $dbhash = $row->password;
-                    // var_dump($dbhash);
-                    // var_dump($userhash);
-                    // var_dump(password_verify($_POST['password'],$row->password));
-
-
-                    // if(password_hash($_POST['password'])=== $row->password)
-                    // if (password_verify($_POST['password'],$row->password))
-                    // var_dump($_POST['password']);
-                    // var_dump($userhash);
-                    // var_dump($dbhash);
-                    $dbha = $row->password;
-                    $userhash = password_hash($_POST["password"],PASSWORD_DEFAULT);
-                    // if (password_verify($_POST['password'],$row->password))
-                    $userpass = $_POST['password'];
-                    var_dump($_POST['password']);die();
-                    if (password_verify($userpass,$userhash))
+                    if (password_verify($_POST['password'],$row->password))
                     {   
                         //temprory message 
                         $this->session->set_flashdata("success","You are logged in");

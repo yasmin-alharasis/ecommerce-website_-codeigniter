@@ -29,7 +29,7 @@
         <tbody>
         <?php foreach($product as $item): ?>
             <tr>
-                <td><img  src="http://localhost/codeigniter_crud_system/upload/<?php echo $item["image"]; ?>" width='40'/></td>
+                <td><img  src="http://localhost/ci_shop/upload/<?php echo $item["image"]; ?>" width='40'/></td>
                 <td><?php echo $item["pname"]; ?></td>
                 <td><?php echo $item["price"]?></td>
                 <td>

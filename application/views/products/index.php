@@ -33,7 +33,7 @@ session_start();
             background-color: #efefef;
             padding: 2%;
         }
-        h2{
+        h2,span{
             text-align: center;
             color: #66afe9;
             background-color: #efefef;
@@ -46,6 +46,7 @@ session_start();
             max-width: 200;
             height: 200;
         }
+        
 </style>
 </head>
 <body>
@@ -70,44 +71,29 @@ session_start();
             ?>
                 
                 <div class="col-md-3">
-                <?php echo form_open_multipart('shoping_cart/cartTodb'); ?>
-                <!-- <form action="" method="POST"  name="cart"> -->
-                <div class="product" > 
-
-                <input name="user_id" type="hidden" value="<?php echo $_SESSION['user_id']; ?>" > 
-                <input name="product_id" type="hidden" value="<?php echo $row["id"]; ?>" > 
-                <input name="pname" type="hidden" value="<?php echo $row["pname"]; ?>" >
-                <input name="price" type="hidden" value="<?php echo $row["price"]; ?>" >  
-                
-
-                    <img class="img-sty" src="http://localhost/codeigniter_crud_system/upload/<?php echo $row["image"]; ?>" class="img-responsive" /> 
+                <a href="<?php echo site_url('/product/'.$row['id']); ?>">
+                    <div class="product" > 
+                    <input name="product_id" type="hidden" value="<?php echo $row["id"]; ?>" > 
+                    <input name="pname" type="hidden" value="<?php echo $row["pname"]; ?>" >
+                    <input name="price" type="hidden" value="<?php echo $row["price"]; ?>" >  
+                    <img class="img-sty" src="http://localhost/ci_shop/upload/<?php echo $row["image"]; ?>" class="img-responsive" /> 
                     <h5 class="text-info"><?php echo $row["pname"]; ?></h5>  
-                    <h5 class="text-danger"><?php echo $row["price"]; ?></h5>  
-                    <input type="text" name="quentity" id="<?php echo $row['id']; ?>" >
-                    <button type="submit" name="add_cart" style="margin-top: 5px;" class="btn btn-success add_cart" data-productname='<?php echo $row['pname']; ?>'
-                    data-price='<?php echo $row['price']; ?>' data-productid='<?php echo $row['id']; ?>' >ADD To Cart </button>
+                    <h5 class="text-danger"><?php echo $row["price"]; ?></h5>    
+                </a>
                 </div>
                 </div>
-                </form>
             <?php
                 }
             ?>   
             </div>
            </div>
            </div>
-           <!-- <div class="container">
-           <div class="col-lg-12 col-md-12">
-                <div id="cart_details">
-                    <h3 align="center">Cart is Empty</h3> 
-                </div>
-           </div>
-           </div> -->
-
 
 </body>
 </html>
 <script>
 debugger
+// When the user clicks on <div>, open the popup
 $(document).ready(function(){
     console.log("DOM is ready");
     $('.add_cart').click(function(){
@@ -117,57 +103,17 @@ $(document).ready(function(){
         var product_price = $(this).data("price");
       
         var quentity = $("#"+product_id).val();
-        if( quentity !='' && quentity>0)
-        {
-            $.ajax({
-                url:"<?php echo base_url(); ?>Shoping_cart/add",
-                method: "POST",
-                data:{ 
-                    product_id:product_id,
-                    product_name:product_name,
-                    product_price:product_price,
-                    quantity:quentity
-                },
-                success:function(data)
-                {   
-                    
-                    alert("Product Added into Cart");
-                    $('#cart_details').html(data);
-                    redirect("product/cart");
-
-                }
-            });
-            // $.ajax({
-            //     url:"<?php echo base_url(); ?>Shoping_cart/count",
-            //     method: "POST",
-            //     data:{ 
-            //         product_id:product_id,
-            //         product_name:product_name,
-            //         product_price:product_price,
-            //         quantity:quentity
-            //     },
-                
-            //     success:function(data)
-            //     {
-            //         alert(" Added notification");
-            //         document.getElementById("count").innerHTML = data;
-            //     }
-            //     error:function()
-            //     {
-            //         alert('Error');
-            //     }
-           
-
-            // });
-            
-        }
-        else
+        if( quentity !='' && quentity>0 )
+        {   
+            alert("Product Added into Cart");
+        }else
         {
             alert("please Enter quentity");
         }
-        
     });
-
+  
+    
+// When the user clicks on div, open the popup
 
     $('#cart_details').load("<?php echo base_url(); ?>Shoping_cart/load");
 
@@ -212,37 +158,7 @@ $(document).ready(function(){
 
     $('#count').load("<?php echo base_url(); ?>Shoping_cart/count");
 
-//     $(document).on('click','.add_cart',function(){
-        
-//         var product_id = $(this).data("productid");
-//         var quentity = $("#"+product_id).val();
-
-//         if( quentity !='' && quentity>0)
-//         {   
-//             $.ajax({
-//                 url:"<?php echo base_url(); ?>Shoping_cart/cartTodb",
-//                 method: "POST",
-//                 data:{ 
-//                     product_id:product_id,
-//                     product_name:product_name,
-//                     product_price:product_price,
-//                     quantity:quentity },
-
-//             success:function(data)
-//             {
-//                 alert("success");
-//             }
-//             error:function(data)
-//             {
-//                 alert("error");
-//             }
-//         });
-//         }
-
-// })
-
-
-})
+});
 
 </script>
 

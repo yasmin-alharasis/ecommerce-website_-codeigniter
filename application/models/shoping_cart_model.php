@@ -8,10 +8,13 @@ class shoping_cart_model extends CI_Model
         return $query->result_array();
     }
 
-    function fetch_all_item()
+    function fetch_all_item($id)
     {   
         $query = $this->db->get("order");
+        $query = $this->db->get_where('order',array('user_id' => $id));
         return $query->result_array();
+        // return $query->row_array();
+
     }
 
     //add product from admin
@@ -25,8 +28,14 @@ class shoping_cart_model extends CI_Model
             'category_id'=> $this->input->post('category_id'),
             'pname' => $this->input->post('pname'),
             'price' => $this->input->post('price'),
-            'image' => $data['img'],          
+            'image' => $data['img'],     
+            'description' => $this->input->post('description')     
         );
+        // $d = array(
+        //     'product_id'=>
+        //     'color_id'=>
+        //     'qty'=>
+        // )
         $this->db->insert('product',$data);
         
     }
@@ -51,6 +60,30 @@ class shoping_cart_model extends CI_Model
     public function delete_product($id){
         $this->db->where('id',$id);
         $this->db->delete('product');
+        return true;
+    }
+
+    // public function delete_posts($id)
+    //     {
+    //         $this->db->where('id',$id);
+    //         $this->db->delete('posts');
+    //         return true;
+    //     }
+
+    public function delete_order($id)
+        {
+            $this->db->where('OrderId',$id);
+            $this->db->delete('order');
+            return true;
+        }
+    public function deleteOrder($user_id,$product_id){
+        $this->db->where(array('user_id' => $user_id,'product_id' => $product_id));  
+        $this->db->delete('order');
+        return true;
+    }
+    public function clearAllCart($user_id){
+        $this->db->where(array('user_id'=>$user_id));
+        $this->db->delete('order');
         return true;
     }
 

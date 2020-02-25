@@ -8,6 +8,12 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
 
+    <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
+    <script type="text/javascript" src='<?= base_url("assets/js/jquery-3.4.1.js"); ?>'></script>
+    <script type="text/javascript" src='<?= base_url("assets/js/bootstrap.min.js"); ?>'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <title>Create Product</title>
   </head>
   <body>
@@ -49,12 +55,40 @@
             <label for="price" >Price:</label>
             <input class="form-control" name="price" type="text" id="price" autocomplete="off">
         </div>   
-
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" name="description" type="text" id="description"></textarea>
+        </div>
+        <div class="row col-md-12">
+        <div class="round col-md-4">
+            <input type="checkbox" id="checkbox" />
+            <label for="checkbox">Add Attribute</label>
+        </div>
+        <div class="attributes">
+        <div class="form-group">
+            <div class="row">
+                <Label class=" col-md-6" for="color">color:</Label>
+                <label class=" col-md-5" for="quentity">Quentity</label>
+            </div>
+            <div class="row">
+            <select  class=" form-control col-md-6" id="color" name="color">
+            <option value="" selected></option>
+            <?php foreach($color as $row) { ?>
+                <option value="<?php echo $row['color_id']; ?>"><?php echo $row['color_name']; ?></option>
+            <?php
+                }
+            ?> 
+            </select>&nbsp;
+            <input  class="form-control col-md-5" type="number" value="0" autocomplete="off" name="quentity" min="1" max="100" 
+                    step="1" id="<?php echo $row['color_id']; ?> "/>
+            </div>
+        </div>
+        </div>
+        </div>
         <div class="form-group">
             <label for="exampleFormControlFile1">Upload product photo</label>
             <?php echo form_upload(['name'=>'userfile']); ?>
         </div>
-
         <div>
            <button class="btn btn-primary" name="create">Create</button>
         </div>
@@ -67,3 +101,16 @@
   
   </body>
 </html>
+<script>
+debugger
+// When the user clicks on <div>, open the popup
+$(document).ready(function(){
+    console.log("DOM is ready");
+    
+    $('.attributes').hide();
+    $('#checkbox').click(function(){
+        $('.attributes').show();
+    });
+});
+</script>
+

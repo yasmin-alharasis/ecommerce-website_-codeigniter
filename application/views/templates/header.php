@@ -1,6 +1,8 @@
 <?php if(isset($_SESSION['user_Logged'])&& $_SESSION['user_type']=='member') { ?>
 <?php $this->load->model('shoping_cart_model');
-$item = $this->shoping_cart_model->fetch_all_item();
+$id = $_SESSION['user_id'];
+$item = $this->shoping_cart_model->fetch_all_item($id);
+
 ?>
 <?php } ?>
 <html>
@@ -74,7 +76,7 @@ $item = $this->shoping_cart_model->fetch_all_item();
                 <a class="nav-link" href="<?php echo base_url();?>index.php/auth/logout">Logout</a>
             </li>
         <?php } ?>
-        <?php if(isset($_SESSION['user_Logged'])&& $_SESSION['user_type']=='member') { ?>
+        <?php if(isset($_SESSION['user_Logged']) && $_SESSION['user_type']=='member') { ?>
 
             <li class="nav-item">         
                 <a class="nav-link" href="<?php echo base_url();?>index.php/Shoping_cart/cart">
