@@ -83,6 +83,29 @@
                     step="1" id="<?php echo $row['color_id']; ?> "/>
             </div>
         </div>
+        
+        <div class="attributes">
+        
+        <div class="form-group">
+        
+            <div class="row">
+                <Label class=" col-md-6" for="color">color:</Label>
+                <label class=" col-md-5" for="quentity">Quentity</label>
+            </div>
+            <div class="row">
+            <select  class=" form-control col-md-6" id="color" name="color">
+            <option value="" selected></option>
+            <?php foreach($color as $row) { ?>
+                <option value="<?php echo $row['color_id']; ?>"><?php echo $row['color_name']; ?></option>
+            <?php
+                }
+            ?> 
+            </select>&nbsp;
+            <input  class="form-control col-md-5" type="number" value="0" autocomplete="off" name="quentity" min="1" max="100" 
+                    step="1" id="<?php echo $row['color_id']; ?> "/>
+            </div>
+        </div>
+        </div>
         </div>
         </div>
         <div class="form-group">
@@ -104,13 +127,13 @@
 <script>
 debugger
 // When the user clicks on <div>, open the popup
-$(document).ready(function(){
-    console.log("DOM is ready");
+// $(document).ready(function(){
+//     console.log("DOM is ready");
     
-    $('.attributes').hide();
-    $('#checkbox').click(function(){
-        $('.attributes').show();
-    });
-});
+//     $('.attributes').hide();
+//     $('#checkbox').click(function(){
+//         $('.attributes').show();
+//     });
+// });
 </script>
 
