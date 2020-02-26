@@ -53,9 +53,23 @@
                 
                 if(isset($_POST['create']))
                 {
-                $this->load->model("shoping_cart_model");
-                $this->shoping_cart_model->create_product();
-                $this->allproduct();
+                // $this->load->model("shoping_cart_model");
+                // $this->shoping_cart_model->create_product();
+                // $this->allproduct();
+                $file_data = $this->upload->data();
+                //$data['img'] = base_url().'/upload/'.$file_data['file_name'];
+                $data['img'] =$file_data['file_name'];
+                $data = array(
+                    'category_id'=> $this->input->post('category_id'),
+                    'pname' => $this->input->post('pname'),
+                    'price' => $this->input->post('price'),
+                    'image' => $data['img'],     
+                    'description' => $this->input->post('description'),
+                    'color' => $this->input->post('color'),
+                    'quentity' => $this->input->post('quentity'),
+                );
+                var_dump($data);
+                die();
                 }
 
             }
