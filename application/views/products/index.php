@@ -1,6 +1,16 @@
-<!-- <?php
-session_start();
-?> -->
+<?php $this->load->model('shoping_cart_model');
+$productsname=[];
+$product_data=[];
+ foreach( $product as  $Name){
+    $i=$Name["pname"];
+    $product_id=$Name["id"];
+    
+if (!in_array($i, $productsname)) {
+    array_push($productsname,$i);
+    array_push($product_data,$product_id); 
+}
+}
+?>
 <!doctype html>
 <html>
 <head>
@@ -69,7 +79,7 @@ session_start();
                 foreach ($product as $row)
                 {
             ?>
-                
+                <?php if(in_array($row["id"],$product_data)) { ?>
                 <div class="col-md-3">
                 <a href="<?php echo site_url('/product/'.$row['id']); ?>">
                     <div class="product" > 
@@ -82,6 +92,7 @@ session_start();
                 </a>
                 </div>
                 </div>
+                <?php } ?>
             <?php
                 }
             ?>   

@@ -13,6 +13,13 @@
             return $query->row_array();
        }
 
+       public function fetch_sameproduct($pname){
+
+          $query = $this->db->get_where('product',array('pname' => $pname));
+          return $query->result_array();
+
+       }
+
        public function fetch_color()
        {
             $query = $this->db->get("product_color");

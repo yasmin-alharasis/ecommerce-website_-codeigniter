@@ -22,6 +22,8 @@
             <tr>
                 <th scope="col">Image</th>
                 <th scope="col">Product Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Color</th>
                 <th scope="col">Price</th>
                 <th scope="col">Action</th>
             </tr>
@@ -31,6 +33,15 @@
             <tr>
                 <td><img  src="http://localhost/ci_shop/upload/<?php echo $item["image"]; ?>" width='40'/></td>
                 <td><?php echo $item["pname"]; ?></td>
+                <td><?php echo $item["quentity"]; ?></td>
+                <td>
+                <?php foreach ($color as $colotItem):?>
+                    <?php if( $item["color_id"] === $colotItem["color_id"]) { ?>
+                    <!-- <?php echo $colotItem["color_name"]?> -->
+                    <div style="background-color:<?php echo $colotItem["color_value"]?>" width="40px">.</div>
+                    <?php } ?> 
+                <?php endforeach; ?>
+                </td>
                 <td><?php echo $item["price"]?></td>
                 <td>
                     <!-- <a class="btn btn-info btn-sm" href="<?php echo site_url('/products/edit/'.$item['id']); ?>">Edit</a> -->

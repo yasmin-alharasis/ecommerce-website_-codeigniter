@@ -1,3 +1,12 @@
+<?php $this->load->model('product_model');
+$pname = $item["pname"];
+$productname = $this->product_model->fetch_sameproduct($pname);
+$colors=[];
+foreach( $productname as  $Name){
+    $i=$Name["color_id"];
+    array_push($colors,$i); 
+}
+?>
 <div class="row">
     <div class="col-md-6">
         <br><br>
@@ -12,6 +21,12 @@
         <h3>Description:</h3>
         <h6><?php echo $item["description"]; ?></h6>
         <h3>Color</h3>
+        <?php foreach ($color as $colotItem):?>
+            <?php if( in_array($colotItem["color_id"],$colors)) { ?>
+
+            <span style="background-color:<?php echo $colotItem["color_value"]?>" width="40px"><?php echo $colotItem["color_name"]?></span>
+            <?php } ?> 
+        <?php endforeach; ?>
         <?php echo form_open_multipart('shoping_cart/cartTodb'); ?>
             <div class="product" > 
             <?php if(isset($_SESSION['user_Logged'])&& $_SESSION['user_type']=='member') { ?>

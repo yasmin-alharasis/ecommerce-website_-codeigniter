@@ -3,7 +3,8 @@
 class shoping_cart_model extends CI_Model
 {
     function fetch_all()
-    {
+    {   
+
         $query = $this->db->get("product");
         return $query->result_array();
     }
@@ -13,31 +14,30 @@ class shoping_cart_model extends CI_Model
         $query = $this->db->get("order");
         $query = $this->db->get_where('order',array('user_id' => $id));
         return $query->result_array();
-        // return $query->row_array();
 
     }
-
     //add product from admin
     public function create_product()
     {   
         $file_data = $this->upload->data();
-        //$data['img'] = base_url().'/upload/'.$file_data['file_name'];
         $data['img'] =$file_data['file_name'];
+            
+        $this->db->get('product');
 
-        $data = array(
-            'category_id'=> $this->input->post('category_id'),
-            'pname' => $this->input->post('pname'),
-            'price' => $this->input->post('price'),
-            'image' => $data['img'],     
-            'description' => $this->input->post('description')     
-        );
-        // $d = array(
-        //     'product_id'=>
-        //     'color_id'=>
-        //     'qty'=>
-        // )
-        $this->db->insert('product',$data);
-        
+        for ($i=0; $i<= count($this->input->post('color'))-1 || $i <= count($this->input->post('quentity'))-1;$i++){
+            $file_data = $this->upload->data();
+            $data['img'] =$file_data['file_name'];
+            $data = array(
+				'category_id'=> $this->input->post('category_id'),
+				'pname' => $this->input->post('pname'),
+				'price' => $this->input->post('price'),
+				'image' => $data['img'],
+				'description' => $this->input->post('description'),
+				'color_id' => $this->input->post('color')[$i],
+				'quentity' => $this->input->post('quentity')[$i],
+            );
+            $this->db->insert('product',$data);
+		}
     }
     
     //when user add product to cart that will save data poduct in table order
@@ -62,13 +62,6 @@ class shoping_cart_model extends CI_Model
         $this->db->delete('product');
         return true;
     }
-
-    // public function delete_posts($id)
-    //     {
-    //         $this->db->where('id',$id);
-    //         $this->db->delete('posts');
-    //         return true;
-    //     }
 
     public function delete_order($id)
         {

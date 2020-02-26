@@ -6,14 +6,10 @@
             parent::__construct();
             $this->load->model('Product_model');
             $this->load->model('shoping_cart_model');
-            $this->load->library('session');
-            
+            $this->load->library('session');         
         }
         
-        // public function index($id){
-
         public function index(){
-
             $this->load->model("shoping_cart_model");
             $data["product"] = $this->shoping_cart_model->fetch_all();
             if(isset($_SESSION['user_Logged'])) {
@@ -24,9 +20,7 @@
             $this->load->view("products/index",$data);
             $this->load->view('templates/footer');
             
-        }
-        
-        
+        }            
         public function cart(){
 
             $this->load->view('templates/header');
@@ -53,23 +47,9 @@
                 
                 if(isset($_POST['create']))
                 {
-                // $this->load->model("shoping_cart_model");
-                // $this->shoping_cart_model->create_product();
-                // $this->allproduct();
-                $file_data = $this->upload->data();
-                //$data['img'] = base_url().'/upload/'.$file_data['file_name'];
-                $data['img'] =$file_data['file_name'];
-                $data = array(
-                    'category_id'=> $this->input->post('category_id'),
-                    'pname' => $this->input->post('pname'),
-                    'price' => $this->input->post('price'),
-                    'image' => $data['img'],     
-                    'description' => $this->input->post('description'),
-                    'color' => $this->input->post('color'),
-                    'quentity' => $this->input->post('quentity'),
-                );
-                var_dump($data);
-                die();
+                $this->load->model("shoping_cart_model");
+                $this->shoping_cart_model->create_product();
+                $this->allproduct();
                 }
 
             }
@@ -92,16 +72,6 @@
         
         function add()
         {   
-            
-            // $this->load->library("cart");
-            // $data = array(
-            //     "id" => $_POST["product_id"],
-            //     "name" => $_POST["product_name"],
-            //     "qty" =>$_POST["quantity"],
-            //     "price" => $_POST["product_price"],
-            // );
-            // $this->cart->insert($data);
-            // echo $this->view();
 
         }
 
@@ -147,48 +117,9 @@
                     $this->db->insert('order',$d);
                 }
                 redirect('Shoping_cart/index'); 
-                //$this->allproduct();
             }
-
-
         }
-        //yet not working
-        // function deleteFromdb($id){
-        //     $this->load->library('session');
-        //     if(isset($_POST['removeItem'])){
-        //         $user_id = $_POST['user_id'];
-        //         // $product_id = $_POST['product_id'];
-        //         $product_id = $id;
-
-        //         $data = array(
-        //             'quantity' =>'0',
-        //             'deleted_at' =>date("Y-m-d"),
-        //         );
-
-        //         $this->db->select('quantity','deleted_at');
-        //         $this->db->from('order');
-        //         $row=$this->db->where(array( 
-        //             'user_id' => $user_id,
-        //             'product_id'=>$product_id
-        //         ));
-
-        //         $query = $this->db->get();
-        //         $row = $query->row();
-        //         //$row = $this->db->insert('order',$data);
-        //         if(isset($row)){
-        //             $this->db->where(array(
-        //                 'user_id' => $user_id,
-        //                 'product_id' => $product_id
-        //             ));
-        //             $this->db->set($data);
-        //             $this->db->update('order',$data);
-        //         }
-        //         alert('deleted');
-        //     }
-        // }
-
- 
-        
+              
         function load()
         {     
             echo $this->view();
@@ -275,6 +206,8 @@
 
         function allproduct(){
             $data["product"] = $this->shoping_cart_model->fetch_all();
+            $data["color"] = $this->product_model->fetch_color();
+            // $data["color"] = $this->product_model->fetch_colorItem();
             $this->load->view('templates/header');
             $this->load->view('admin/index',$data);
             $this->load->view('templates/footer');

@@ -9,11 +9,12 @@
             $this->load->library('session');
             
         }
+        public function view($id)
 
-        public function view($id = Null)
         {
             $data['item'] = $this->product_model->fetch_product($id);
-            
+            $data['color'] = $this->product_model->fetch_color();
+    
             if(empty($data['item']))
             {
                 show_404();
