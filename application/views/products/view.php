@@ -42,9 +42,21 @@ foreach( $productname as  $Name){
                 type="submit" name="add_cart" style="margin-top: 5px;" class="btn btn-success add_cart" data-productname='<?php echo $item['pname']; ?>'
                 data-price='<?php echo $item['price']; ?>' data-productid='<?php echo $item['id']; ?>' >ADD To Cart </button>
                 <?php } ?>
-        </div>
+                
         </div>
         </form>
+        <?php echo form_open('auth/login'); ?>
+        <?php if(isset($_SESSION['user_Logged'])== FALSE) { ?>
+            <button style="margin-top: 5px;" class="btn btn-success not_login">ADD To Cart </button>
+        <?php } ?>
+        </form>
+        </div>
     </div>
-
+<script>
+$(document).ready(function(){
+    $('.not_login').click(function(){
+        // alert("Please login");
+    });
+});
+</script>
     

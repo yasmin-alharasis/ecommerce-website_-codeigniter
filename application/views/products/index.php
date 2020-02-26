@@ -88,7 +88,9 @@ if (!in_array($i, $productsname)) {
                     <input name="price" type="hidden" value="<?php echo $row["price"]; ?>" >  
                     <img class="img-sty" src="http://localhost/ci_shop/upload/<?php echo $row["image"]; ?>" class="img-responsive" /> 
                     <h5 class="text-info"><?php echo $row["pname"]; ?></h5>  
-                    <h5 class="text-danger"><?php echo $row["price"]; ?></h5>    
+                    <h5 class="text-danger"><?php echo $row["price"]; ?></h5>  
+                    <p> lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
+                    <p><button>Add to Cart</button></p>  
                 </a>
                 </div>
                 </div>

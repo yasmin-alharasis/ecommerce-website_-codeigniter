@@ -17,9 +17,7 @@ $item = $this->shoping_cart_model->fetch_all_item($id);
     </head>
     <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-    <?php if(isset($_SESSION['user_Logged'])&& $_SESSION['user_type']=='member') { ?>
       <a class="navbar-brand" href="<?php echo base_url();?>index.php/Shoping_cart/index">Shop</a>
-      <?php } ?>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       
         <span class="navbar-toggler-icon"></span>
