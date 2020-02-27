@@ -25,6 +25,8 @@
 
             $this->load->view('templates/header');
             $this->load->model("shoping_cart_model");
+            $this->load->model("product_model");
+            $data["color"] =$this->product_model->fetch_color();
             $id = $_SESSION['user_id'];
             $data["item"] = $this->shoping_cart_model->fetch_all_item($id);
             $this->load->view("products/cart",$data);
@@ -83,7 +85,7 @@
                 $user_id = $_POST['user_id'];
                 $product_id = $_POST['product_id'];
                 $quentity = $_POST['quentity'];
-
+                $color_id = $_POST['color_id'];
                 $data = array(
                     'quantity' =>$_POST['quentity'],
                 );
@@ -94,6 +96,7 @@
                     'product_name' => $_POST['pname'],
                     'product_price' =>$_POST['price'],
                     'quantity' =>$_POST['quentity'],
+                    'color_id'=>$_POST['color_id'],
                 );
 
                 $this->db->select('quantity');

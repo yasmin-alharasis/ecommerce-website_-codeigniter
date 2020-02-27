@@ -5,7 +5,8 @@ $(document).ready(function(){
     {    
         var username = $("#form_username").val();
         var password =$("#form_password").val();
-        if(  username.length ===0 && password.length===0) {
+        var captcha = $("#form_userCaptcha").val();
+        if(  username.length ===0 && password.length===0 && captcha.length ===0) {
             $("#username_error_message").html("username is Required");
             $("#username_error_message").show();
             $("#form_username").css("border-bottom","2px solid #F90A0A");
@@ -16,18 +17,24 @@ $(document).ready(function(){
             $("#form_password").css("border-bottom","2px solid #F90A0A");
             error_password = true;
 
+            $("#captcha_error_message").html("feild is Required");
+            $("#captcha_error_message").show();
+            $("#form_userCaptcha").css("border-bottom","2px solid #F90A0A");
+            error_captcha = true;
+
             event.preventDefault();
         }
-        if( error_username === true || error_password === true ){
+        if( error_username === true || error_password === true || error_captcha === true){
                 event.preventDefault();
         }
     });
     $(function(){
         $("#username_error_message").hide();
         $("#password_error_message").hide();
-
+        $("#captcha_error_message").hide();
         var error_username = false;
         var error_password = false;
+        var error_captcha = false;
 
         $("#form_username").focusout(function(){
             check_username();
@@ -36,6 +43,11 @@ $(document).ready(function(){
         $("#form_password").focusout(function(){
             check_password();
         });
+
+        $("#form_userCaptcha").focusout(function(){
+            check_userCaptcha();
+        });
+
 
         function check_username(event){
             var pattern = /^[a-zA-Z]*$/;
@@ -63,6 +75,16 @@ $(document).ready(function(){
                 $("#form_password").css("border-bottom","2px solid #34F458");
             }
         }
+
+        function check_userCaptcha(event){
+            var userCaptcha = $("#form_userCaptcha").val().length;
+            if( userCaptcha > 0){
+                $("#captcha_error_message").hide();
+                $("#form_userCaptcha").css("border-bottom","2px solid #34F458");
+                return error_captcha = false;
+            }
+        }
+
     });
 });
    

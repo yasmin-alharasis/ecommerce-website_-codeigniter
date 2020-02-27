@@ -27,6 +27,7 @@ $item = $this->shoping_cart_model->fetch_all_item($id);
                         <tr>
                             <th width="40%">Name</th>
                             <th width="15%">Quantity</th>
+                            <th width="15%">Color</th>
                             <th width="15%">Price</th>
                             <th width="15%">Total</th>
                             <th width="15%">Action</th>
@@ -36,6 +37,14 @@ $item = $this->shoping_cart_model->fetch_all_item($id);
                             
                             <td><?php echo $row["product_name"]?></td>
                             <td><?php echo $row["quantity"]?></td>
+
+                            <td>
+                            <?php foreach ($color as $colotItem):?>
+                                <?php if( $row["color_id"] === $colotItem["color_id"]) { ?>
+                                <div style="background-color:<?php echo $colotItem["color_value"]?>" >.</div>
+                                <?php } ?> 
+                            <?php endforeach; ?>
+                            </td>
                             <td><?php echo $row["product_price"]?></td>
                             <td><?php echo $row["product_price"]*$row["quantity"]?></td>
                             <td>

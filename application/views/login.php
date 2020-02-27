@@ -35,17 +35,21 @@
         <div>
             <label >Username:</label><br>
             <input class="col-md-4" name="username" type="text" id="form_username" autocomplete="off" >
-            <small class="error_form col-md-4" id="username_error_message"></small>  
-            <span class="text-danger"><?php echo form_error('username'); ?></span>             
+            <small class="text-danger" id="username_error_message"><?php echo form_error('username'); ?><?php echo form_error('username','<p style="color:#F83A18">','</p>'); ?></small>             
         </div>
         <div>
             <label >Password:</label><br>
             <input class="col-md-4" name="password" type="password" id="form_password" autocomplete="off" >
-            <small class="error_form" id="password_error_message"></small>
+            <small class="error_form text-danger" id="password_error_message"><?php echo form_error('password','<p style="color:#F83A18">','</p>'); ?></small>
+        </div><br>
+        <div>
+            <label for="captcha"><?php echo $captcha['image']; ?></label><br>
+            <input class="col-md-4" name="userCaptcha" type="text" id="form_userCaptcha" autocomplete="off" placeholder="Enter above text" value="<?php if(!empty($userCaptcha)){echo $userCaptcha;} ?>">
+            <small class="error_form required-server text-danger" id="captcha_error_message"><?php echo form_error('userCaptcha','<p style="color:#F83A18">','</p>'); ?></small>
+            <!-- <small class="error_form required-server text-danger" id="captcha_error_message"></small> -->
         </div>
         <div>
           <input class="btn btn-primary" type="submit"  id="submit" name="login" style="float: right;">
-
         </div>
         </form>
         </div>
