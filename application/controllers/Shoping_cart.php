@@ -82,7 +82,6 @@
                 $quentity = $_POST['quentity'];
                 $color_id = $_POST['color_id'];
                 $pname = $_POST['pname'];
-
                 $data = array(
                     'quantity' =>$_POST['quentity'],
                 );
@@ -96,18 +95,24 @@
                     'color_id'=>$_POST['color_id'],
                 );
 
-                $this->db->select('	quentity');
+                // var_dump($color_id);
+                // var_dump($product_id);
+                // var_dump($quentity);
+                // die();
+
+
+                $this->db->select('quentity');
                 $this->db->from('product');
                 $row=$this->db->where(array( 
-                    'id'=>$product_id,
+                    'pname' =>$_POST['pname'],
                     'color_id' =>$color_id
                 ));
                 $query = $this->db->get();
                 $result = $query->row();
                 $value =  $result->quentity;
- 
+                
                 if($value >= $quentity){
-
+           
                     $this->db->select('quantity');
                     $this->db->from('order');
                     $row=$this->db->where(array( 
@@ -155,7 +160,6 @@
 
         }
  
-
         function allproduct(){
             $data["product"] = $this->shoping_cart_model->fetch_all();
             $data["color"] = $this->product_model->fetch_color();

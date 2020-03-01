@@ -26,8 +26,10 @@ foreach( $productname as  $Name){
         <?php foreach ($color as $colotItem):?>
             <?php if( in_array($colotItem["color_id"],$colors)) { ?>
             <div class="round">
-            <input class="checked" type="checkbox" name="color_id" id="GFG" selected value="<?php echo $colotItem["color_id"]?>" >
+            <input class="checked" type="checkbox" name="color_id" id="GFG" value="<?php echo $colotItem["color_id"]?>" >
             <span style="background-color:<?php echo $colotItem["color_value"]?>" width="40px"><?php echo $colotItem["color_name"]?></span>
+            <span style="background-color:<?php echo $colotItem["color_value"]?>" width="40px"><?php echo $colotItem["color_id"]?></span>
+
             </div>
             <?php } ?> 
         <?php endforeach; ?>
