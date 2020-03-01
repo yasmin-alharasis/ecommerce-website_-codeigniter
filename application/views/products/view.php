@@ -72,9 +72,10 @@ $(document).ready(function(){
             $('#divResult').html(result.val() + "is checked");
         }else{
             $('#divResult').html("please select color");
+            $("#divResult").show();
+            $("#divResult").css("color","#F90A0A");
         }
     })
-
 
 });
 </script>

@@ -163,14 +163,12 @@ class Auth extends CI_Controller
             $this->form_validation->set_error_delimiters();
 
             //if form validation true
-            // $salt = 'hjioklokijuygtfdrdaeawqcxzvbnmpo';
             $options = [ 'cost' => 7, 'salt' => 'usesomesillystringforsalt' ];
             if($this->form_validation->run() == TRUE){
                 $data = array(
                     'username' => $_POST['username'],
                     'user_type'=>'member',
                     'email' => $_POST['email'],
-                    // 'password' => password_hash($_POST['password'], PASSWORD_BCRYPT),
                     'password' => password_hash($_POST["password"],PASSWORD_DEFAULT),
                     'gender' => $_POST['gender'],
                     'created_date' => date('Y-m-d'),

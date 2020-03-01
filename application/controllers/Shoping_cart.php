@@ -95,12 +95,6 @@
                     'color_id'=>$_POST['color_id'],
                 );
 
-                // var_dump($color_id);
-                // var_dump($product_id);
-                // var_dump($quentity);
-                // die();
-
-
                 $this->db->select('quentity');
                 $this->db->from('product');
                 $row=$this->db->where(array( 
@@ -163,7 +157,6 @@
         function allproduct(){
             $data["product"] = $this->shoping_cart_model->fetch_all();
             $data["color"] = $this->product_model->fetch_color();
-            // $data["color"] = $this->product_model->fetch_colorItem();
             $this->load->view('templates/header');
             $this->load->view('admin/index',$data);
             $this->load->view('templates/footer');
