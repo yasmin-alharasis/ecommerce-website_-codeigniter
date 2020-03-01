@@ -32,6 +32,7 @@ $(document).ready(function(){
         $("#username_error_message").hide();
         $("#password_error_message").hide();
         $("#captcha_error_message").hide();
+        
         var error_username = false;
         var error_password = false;
         var error_captcha = false;

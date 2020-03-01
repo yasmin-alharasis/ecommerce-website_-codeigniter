@@ -2,12 +2,7 @@
 
 class Auth extends CI_Controller
 {   
-    // class AdminAuthMiddleware {
-    //     // Get injected controller and ci references
-    //     protected $controller;
-    //     protected $ci;
-    //     protected $admin_auth;
-
+    
     public function __construct(){
 
         parent::__construct();
@@ -24,18 +19,19 @@ class Auth extends CI_Controller
 
     public function login()
     {   
-     //numeric random number for captcha
-     $random_number = substr(number_format(time() * rand(),0,'',''),0,6);
-     //setting up captcha config
-     $vals = array(
-         'word' => $random_number,
-         'img_path' =>'./captcha_images/',
-         'img_url' =>base_url().'captcha_images/',
-         'img_width' => 140,
-         'img_height' => 32,
-         'expiration' =>7200
-     );
-     $data['captcha'] = create_captcha($vals);
+    // numeric random number for captcha
+    $random_number = substr(number_format(time() * rand(),0,'',''),0,6);
+    //setting up captcha config
+    $vals = array(
+        'word' => $random_number,
+        'img_path' =>'./captcha_images/',
+        'img_url' =>base_url().'captcha_images/',
+        'img_width' => 140,
+        'img_height' => 32,
+        'expiration' =>7200
+    );
+    $data['captcha'] = create_captcha($vals);
+    $this->session->set_userdata("captchaWord",$data['captcha']['word']);
 
     $this->load->view('templates/header');
     $this->load->view('login',$data);
@@ -90,7 +86,7 @@ class Auth extends CI_Controller
                     redirect('auth/login');
                 }
             }else{
-            //numeric random number for captcha
+            // numeric random number for captcha
             $random_number = substr(number_format(time() * rand(),0,'',''),0,6);
             //setting up captcha config
             $vals = array(
@@ -103,13 +99,17 @@ class Auth extends CI_Controller
             );
             $data['captcha'] = create_captcha($vals);
             $this->session->set_userdata("captchaWord",$data['captcha']['word']);
+            $this->load->view('templates/header');
             $this->load->view('login',$data);
+            $this->load->view('templates/footer');
+
             }
         }        
     }
 
     public function check_captcha($str)
-    {
+    {   
+
         $word = $this->session->userdata("captchaWord");
         if(strcmp(strtoupper($str),strtoupper($word)) == 0){
             return true;

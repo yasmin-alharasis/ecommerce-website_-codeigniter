@@ -70,7 +70,7 @@ if (!in_array($i, $productsname)) {
             
 
             <?php if(isset($_SESSION['error'])) { ?>    
-            <div class="alert alert-success"><?php echo $_SESSION['success']; ?></div>
+            <div class="alert alert-success"><?php echo $_SESSION['error']; ?></div>
             <?php
 
             }?>

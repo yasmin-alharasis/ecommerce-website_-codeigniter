@@ -26,13 +26,15 @@ foreach( $productname as  $Name){
         <?php foreach ($color as $colotItem):?>
             <?php if( in_array($colotItem["color_id"],$colors)) { ?>
             <div class="round">
-            <input class="checked" type="checkbox" name="color_id" id="GFG" value="<?php echo $colotItem["color_id"]?>" >
+            <input class="checked" type="checkbox" name="color_id" id="GFG" selected value="<?php echo $colotItem["color_id"]?>" >
             <span style="background-color:<?php echo $colotItem["color_value"]?>" width="40px"><?php echo $colotItem["color_name"]?></span>
             </div>
             <?php } ?> 
         <?php endforeach; ?>
-        <p id="sudo" style="color:green;font-size:30px;"></p> 
+        <div id="divResult">
+        </div>
 
+        <p id="sudo" style="color:green;font-size:30px;"></p> 
             <div class="product" > 
             <?php if(isset($_SESSION['user_Logged'])&& $_SESSION['user_type']=='member') { ?>
             <input name="user_id" type="hidden" value="<?php echo $_SESSION['user_id']; ?>" /> 
@@ -40,14 +42,14 @@ foreach( $productname as  $Name){
             <input name="pname" type="hidden" value="<?php echo $item["pname"]; ?>" >
             <input name="price" type="hidden" value="<?php echo $item["price"]; ?>" >  
             <?php } ?>
-                <?php if(isset($_SESSION['user_Logged'])&& $_SESSION['user_type']=='member') { ?>
+                <?php if(isset($_SESSION['user_Logged']) && $_SESSION['user_type']=='member') { ?>
                 <h3>Quentity:</h3><br>
                 <input 
                     type="number" class="qty" value="0" autocomplete="off" name="quentity" min="1" max="10" step="1" id="<?php echo $item['id']; ?>"/>
-                <button 
+                <button id="btnSubmit"
                 type="submit" name="add_cart" style="margin-top: 5px;" class="btn btn-success add_cart" data-productname='<?php echo $item['pname']; ?>'
                 data-price='<?php echo $item['price']; ?>' data-productid='<?php echo $item['id']; ?>' data-color='<?php echo $colotItem["color_id"]?>' >ADD To Cart </button>
-               <?php }?>     
+            <?php }?>     
         </div>
         </form>
         <?php echo form_open('auth/login'); ?>
@@ -57,18 +59,21 @@ foreach( $productname as  $Name){
         </form>
         </div>
     </div>
+
 <script>
 $(document).ready(function(){
+   
+    $('#btnSubmit').click(function(){
+        var result = $('input[type="checkbox"]:checked');
+        if(result.length>0)
+        {
+            $('#divResult').html(result.val() + "is checked");
+        }else{
+            $('#divResult').html("please select color");
+        }
+    })
 
-var quentity = $(".qty").val();
-var color =$(".checked").val();
-console.log(quentity);
-console.log(color);
-// if(quentity.length ===0 && color.length ===0 ){
-//     // $('button').show();
-//     $('button').hide();
 
-// }
 });
 </script>
     

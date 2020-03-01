@@ -69,8 +69,8 @@ class shoping_cart_model extends CI_Model
             $this->db->delete('order');
             return true;
         }
-    public function deleteOrder($user_id,$product_id){
-        $this->db->where(array('user_id' => $user_id,'product_id' => $product_id));  
+    public function deleteOrder($user_id,$product_id,$color_id){
+        $this->db->where(array('user_id' => $user_id,'product_id' => $product_id,'color_id'=> $color_id));  
         $this->db->delete('order');
         return true;
     }

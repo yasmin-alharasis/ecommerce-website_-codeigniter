@@ -71,11 +71,6 @@
                 redirect('auth/login');   
             }         
         }
-        
-        function add()
-        {   
-
-        }
 
         function cartTodb(){
 
@@ -86,6 +81,8 @@
                 $product_id = $_POST['product_id'];
                 $quentity = $_POST['quentity'];
                 $color_id = $_POST['color_id'];
+                $pname = $_POST['pname'];
+
                 $data = array(
                     'quantity' =>$_POST['quentity'],
                 );
@@ -99,35 +96,51 @@
                     'color_id'=>$_POST['color_id'],
                 );
 
-                $this->db->select('quantity');
-                $this->db->from('order');
+                $this->db->select('	quentity');
+                $this->db->from('product');
                 $row=$this->db->where(array( 
-                    'user_id' => $user_id,
-                    'product_id'=>$product_id,
+                    'id'=>$product_id,
+                    'color_id' =>$color_id
                 ));
                 $query = $this->db->get();
-                $row = $query->row();
+                $result = $query->row();
+                $value =  $result->quentity;
+ 
+                if($value >= $quentity){
 
-                if(isset($row)){
-                    $this->db->where(array(
+                    $this->db->select('quantity');
+                    $this->db->from('order');
+                    $row=$this->db->where(array( 
                         'user_id' => $user_id,
-                        'product_id' => $product_id
+                        'product_id'=>$product_id,
+                        'color_id' =>$color_id
                     ));
-                    $this->db->set($data);
-                    $this->db->update('order',$data);
+                    $query = $this->db->get();
+                    $row = $query->row();
+    
+                    if(isset($row)){
+                        $this->db->where(array(
+                            'user_id' => $user_id,
+                            'product_id' => $product_id
+                        ));
+                        $this->db->set($data);
+                        $this->db->update('order',$data);
+                    }
+                    else{
+                        $this->db->set($d);
+                        $this->db->insert('order',$d);
+                    }
+                    redirect('Shoping_cart/index');
                 }else{
-                    $this->db->set($d);
-                    $this->db->insert('order',$d);
+                    // 'not available quantity';
+                    $this->session->set_flashdata("error","This quantity is not available");
+                    redirect("Shoping_cart/index");
                 }
-                redirect('Shoping_cart/index'); 
+
             }
         }
               
-        function load()
-        {     
-            echo $this->view();
-        }
-
+        //not use
         //ajax function to delete product from cart (view)
         function remove()
         {
@@ -141,71 +154,7 @@
             echo $this->view();
 
         }
-        //ajax function to remove all item in cart
-        function clear()
-        {
-            $this->load->library("cart");
-            $this->cart->destroy();
-            echo $this->view();
-        }
-
-        //ajax funtion to show cart details in view page
-        function view()
-        {
-        //     $this->load->library("cart");
-        //     $output = '';
-        //     $output .= '
-        //     <br/>
-        //     <h3 align="center">Shopping Cart</h3><br/>
-        //     <div class="table-responsive">
-        //         <div align="right">
-        //             <button type="button" id="clear_cart" class="btn btn-warning">
-        //             Clear Cart
-        //             </button>
-        //         </div>
-        //         <br/>
-        //         <table class="table tabel-bordered">
-        //             <tr>
-        //                 <th width="40%">Name</th>
-        //                 <th width="15%">Quantity</th>
-        //                 <th width="15%">Price</th>
-        //                 <th width="15%">Total</th>
-        //                 <th width="15%">Action</th>
-        //             </tr>
-    
-        //     ';
-        //     $count = 0;
-        //     foreach ($this->cart->contents() as $items)
-        //     {
-        //         $count++;
-        //         // $var = "{$item['name']}"
-        //         $output .= '
-        //         <tr>
-        //             <td>'.$items["name"].'</td>
-        //             <td>'.$items["qty"].'</td>
-        //             <td>'.$items["price"].'</td>
-        //             <td>'.$items["subtotal"].'</td>
-        //             <td><button type="button" name="remove" class="btn btn-danger btn-xs remove_inventory" id="'.$items["rowid"].'">Remove</button></td>
-        //         </tr>
-        //         ';
-        //     }
-        //     $output .='
-        //         <tr>
-        //             <td colspan="4" align="right">Total</td>
-        //             <td>'.$this->cart->total().'</td>
-        //          </tr>
-        //          </table>
-        //          </div>
-                 
-        //     ';
-        //     if($count == 0)
-        //     {
-        //         $output = '<h3 align="center">Cart is Empty</h3>';
-        //     }
-
-            
-        //     return $output;
-        }
+ 
 
         function allproduct(){
             $data["product"] = $this->shoping_cart_model->fetch_all();
@@ -227,7 +176,8 @@
         {
             $user_id = $_SESSION['user_id'];
             $product_id = $id;
-            $this->shoping_cart_model->deleteOrder($user_id,$product_id);
+            $color_id=$_POST['color_id'];
+            $this->shoping_cart_model->deleteOrder($user_id,$product_id,$color_id);
             $this->cart();
         }
 

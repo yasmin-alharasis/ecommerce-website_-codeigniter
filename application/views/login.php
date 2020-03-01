@@ -14,7 +14,21 @@
     
   </head>
   <body>
-    
+  <?php 
+      // $random_number = substr(number_format(time() * rand(),0,'',''),0,6);
+
+      // $vals = array(
+      //     'word' => $random_number,
+      //     'img_path' =>'./captcha_images/',
+      //     'img_url' =>base_url().'captcha_images/',
+      //     'img_width' => 140,
+      //     'img_height' => 32,
+      //     'expiration' =>7200
+      // );
+      // // $data['captcha'] = create_captcha($vals);
+      // $captcha= create_captcha($vals);
+
+  ?>
     
  
     <?php echo validation_errors('<div class="alert alert-danger">','</div>'); ?>
